@@ -233,7 +233,7 @@
   // Stacked daily bars: open fee at the base, fee share on top, a 2px surface
   // gap between them and a 4px rounded top.
   function stacked(el, days) {
-    const W = 960, H = 280, pad = { l: 44, r: 8, t: 10, b: 26 };
+    const W = Math.max(300, el.clientWidth || 960), H = W < 600 ? 220 : 280, pad = { l: 44, r: 8, t: 10, b: 26 };
     const { svg, tip } = frame(el, W, H);
     const max = niceMax(Math.max(...days.map(d => d.open + d.share), 0));
     axes(svg, W, H, pad, max, days.map(d => d.label), v => usd(v, max < 5 ? 1 : 0));
@@ -264,7 +264,7 @@
 
   // One series, 2px line, crosshair with a tooltip.
   function line(el, days, key, name, color, fmt) {
-    const W = 460, H = 220, pad = { l: 44, r: 8, t: 10, b: 26 };
+    const W = Math.max(300, el.clientWidth || 460), H = 220, pad = { l: 44, r: 8, t: 10, b: 26 };
     const { svg, tip } = frame(el, W, H);
     const vals = days.map(d => d[key]);
     const max = niceMax(Math.max(...vals, 0));
